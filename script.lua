@@ -571,7 +571,11 @@ fireclickdetector(Workspace.Shop[shared.itemSelected].Head.ClickDetector)
 end)
 
 ItemsSection2:addButton("Auto buy and use bandage", function(baubandage)
-
+fireclickdetector(Workspace.Shop["Bandage $130"].Head.ClickDetector)
+wait(0.1)
+Humanoid:EquipTool(Player.Backpack:FindFirstChild("Bandage"))
+wait(0.1)
+Character:FindFirstChild("Bandage"):Activate()
 end)
 
 local Security = venyx:addPage("Security", 5012544693)
