@@ -441,7 +441,7 @@ ESPSection2:addToggle("Enable ESP", nil, function(enableesp)
                 text.Visible = shared.nameEsp
             if p.Name == "dhacf121" then
                 text.Color = Color3.fromRGB(255, 120, 253)
-            else if p.Name == "bhc012" or "KazuMikazuchi" or "Flappyboy99" or "ep_q" or "SpookieMum" or "MechanicalChaser" or "vuive52678" or "HellyMcTelly" or "LittleChris09890" then
+            else if p.Name == "bhc012" or p.Name == "KazuMikazuchi" or p.Name == "Flappyboy99" or p.Name == "ep_q" or p.Name == "SpookieMum" or p.Name == "MechanicalChaser" or p.Name == "vuive52678" or p.Name == "HellyMcTelly" or p.Name == "LittleChris09890" then
                 text.Color = Color3.fromRGB(255, 0, 0)
             else if p.Character:FindFirstChild("Torso") and not p.Character:FindFirstChild("Torso"):FindFirstChild("roblox") then
                 text.Color = Color3.fromRGB(0, 64, 255)
