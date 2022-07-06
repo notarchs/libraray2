@@ -375,7 +375,6 @@ TeleportSection2:addButton("Teleport To Location", function()
         local a = tween_s:Create(Player.Character.HumanoidRootPart,tweeninfo,{CFrame = Area})
         a:Play()
     end
-    end
 
     destroy_ken_shit_antiexploit(Area)
 end)
