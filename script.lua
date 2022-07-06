@@ -308,7 +308,7 @@ end
 end)
 
 RiskySection2:addToggle("Auto Dura", nil, function(autoduras)
-
+shared.autoDura = autoduras
 end)
 
 RiskySection2:addDropdown("Roadwork Mode", {"Above", "Under"}, function(roadworkmode)
@@ -319,7 +319,7 @@ RiskySection2:addToggle("Auto Roadwork", nil, function(autoroadwork)
 shared.autoRoadwork = autoroadwork
 
 while shared.autoRoadwork and wait() and shared.roadworkMode == "Above" do
-
+    print("not working rn")
 end
 end)
 
@@ -571,7 +571,11 @@ fireclickdetector(Workspace.Shop[shared.itemSelected].Head.ClickDetector)
 end)
 
 ItemsSection2:addButton("Auto buy and use bandage", function(baubandage)
-
+fireclickdetector(Workspace.Shop["Bandage $130"].Head.ClickDetector)
+wait(0.1)
+Humanoid:EquipTool(Player.Backpack:FindFirstChild("Bandage"))
+wait(0.1)
+Character:FindFirstChild("Bandage"):Activate()
 end)
 
 local Security = venyx:addPage("Security", 5012544693)
