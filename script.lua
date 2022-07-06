@@ -371,9 +371,6 @@ TeleportSection2:addButton("Teleport To Location", function()
     local tween_s = game:GetService('TweenService')
     local tweeninfo = TweenInfo.new(shared.tweenSpeed)
 
-    if Player.Character and
-    Player.Character:FindFirstChild('HumanoidRootPart') then
-
     function destroy_ken_shit_antiexploit()
         local a = tween_s:Create(Player.Character.HumanoidRootPart,tweeninfo,{CFrame = Area})
         a:Play()
