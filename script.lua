@@ -1,16 +1,5 @@
 repeat wait() until game:IsLoaded()
 
-local GC = getconnections or get_signal_cons
-	if GC then
-		for i,v in pairs(GC(game.Players.LocalPlayer.Idled)) do
-			if v["Disable"] then
-				v["Disable"](v)
-			elseif v["Disconnect"] then
-				v["Disconnect"](v)
-			end
-		end
-    end
-
 local Player = game:GetService("Players").LocalPlayer
 local Character = Player.Character if not Character then Character = game.Workspace.Live:WaitForChild(Player) end
 local Humanoid = Character.Humanoid or Character:WaitForChild("Humanoid")
@@ -20,6 +9,17 @@ local Workspace = game:GetService("Workspace")
 if Character:FindFirstChild("Torso") and Character:FindFirstChild("Torso"):FindFirstChild("roblox") then
     Character:FindFirstChild("Torso"):FindFirstChild("roblox"):Destroy()
 end
+
+local GC = getconnections or get_signal_cons
+	if GC then
+		for i,v in pairs(GC(Player.Idled)) do
+			if v["Disable"] then
+				v["Disable"](v)
+			elseif v["Disconnect"] then
+				v["Disconnect"](v)
+			end
+		end
+    end
 
 -- init
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/notarchs/libraray2/main/library.lua"))()
@@ -76,8 +76,10 @@ SafeSection1:addToggle("Auto Vest", nil, function(autovest)
 
     shared.autoVest = autovest
 
-    while shared.autoVest and wait() do
-
+    while shared.autoVest and wait() and shared.vestSelected == "10KG Vest" do
+        if not Player.Backpack:FindFirstChild("10KG Vest") and not Workspace.Live:WaitForChild(Player.Name):FindFirstChild("WeightObject") and not Workspace.Live:WaitForChild(Player.Name):FindFirstChild("10KG Vest") then
+            fireclickdetector(Workspace.Shop["10KG Vest $200"].Head.ClickDetector)
+    end
     end
 
 end)
@@ -354,7 +356,11 @@ local Teleports = venyx:addPage("Teleports", 5012544693)
 local TeleportSection1 = Teleports:addSection("Config")
 local TeleportSection2 = Teleports:addSection("Locations")
 
-TeleportSection2:addDropdown("Location", {"Fruitboz Heads or Tails!", "Simon's Gym", "Mission Hype yeh", "Bank", "Hospital", "Jose's Restaurant", "Gym", "The Inside", "Arena", "Jack's Pharmacy", "KNC", "En's Cafe", "Kebab King", "Base Ultimate", "Stats R Us", "Jova Juice", "Poppa Tatoes", "Kengan Arena", "Forgotten Tunnel", "Mysterious House", "Booter's Home", "Gravity Chamber", "Sailors Ring", "The Docks", "AHHHH! Pizza", "Roby Grill", "Jake's Corner ™"}, function(teleportselect)
+TeleportSection1:addSlider("Tween Speed", 2, 2, 5, function(tweenspeed)
+    shared.tweenSpeed = tweenspeed
+end)
+
+TeleportSection2:addDropdown("Location", {"Fruitboz Heads or Tails!", "Simon's Gym", "Bank", "Hospital", "Jose's Restaurant", "Gym", "Jack's Pharmacy", "KNC", "En's Cafe", "Kebab King", "Stats R Us", "Jova Juice", "Poppa Tatoes", "Kengan Arena", "Gravity Chamber", "Sailors Ring", "The Docks", "AHHHH! Pizza", "Roby Grill", "Jake's Corner ™"}, function(teleportselect)
     shared.teleportSelect = teleportselect  
 end)
 
@@ -365,9 +371,13 @@ TeleportSection2:addButton("Teleport To Location", function()
     local tween_s = game:GetService('TweenService')
     local tweeninfo = TweenInfo.new(shared.tweenSpeed)
 
+    if Player.Character and
+    Player.Character:FindFirstChild('HumanoidRootPart') then
+
     function destroy_ken_shit_antiexploit()
         local a = tween_s:Create(Player.Character.HumanoidRootPart,tweeninfo,{CFrame = Area})
         a:Play()
+    end
     end
 
     destroy_ken_shit_antiexploit(Area)
@@ -648,10 +658,6 @@ end
 end
 end)
 end)--]]
-
-SettingsSection2:addSlider("Tween Speed", 2, 2, 5, function(tweenspeed)
-    shared.tweenSpeed = tweenspeed
-end)
     
 
 -- second page
