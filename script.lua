@@ -353,10 +353,10 @@ end
 end)
 
 local Teleports = venyx:addPage("Teleports", 5012544693)
-local TeleportSection1 = Teleports:addSection("Config")
+local TeleportSection1 = Teleports:addSection("Settings")
 local TeleportSection2 = Teleports:addSection("Locations")
 
-TeleportSection1:addSlider("Tween Speed", 2, 2, 5, function(tweenspeed)
+TeleportSection1:addSlider("Tween Speed", 2, 1, 5, function(tweenspeed)
     shared.tweenSpeed = tweenspeed
 end)
 
@@ -364,7 +364,8 @@ TeleportSection2:addDropdown("Location", {"Fruitboz Heads or Tails!", "Simon's G
     shared.teleportSelect = teleportselect  
 end)
 
-TeleportSection2:addButton("Teleport To Location", function()
+TeleportSection2:addButton("Teleport To Location", function(teleporttolocation)
+shared.teleportToLocation = teleporttolocation
 
     local Area = CFrame.new(Workspace.Areas[shared.teleportSelect].Position)
 
@@ -377,6 +378,27 @@ TeleportSection2:addButton("Teleport To Location", function()
     end
 
     destroy_ken_shit_antiexploit(Area)
+end)
+
+local Style = venyx:addPage("Style", 5012544693)
+local StyleSection = Style:addSection("Style Choose")
+local StyleSection2 = Style:addSection("The Swapping")
+
+StyleSection:addDropdown("Current Style", {"Normal", "Sumo", "Woo", "Pirate", "Muay", "Taekwondo", "Wrestling", "Nikoo", "Niko", "Van", "ASumo", "Marbs", "Helly", "KungFu", "Yuri", "Formless", "Raishin", "Mercenary", "Momo", "Boxing", "Gaolang", "Ashley", "NORMAL", "Booter", "Hitman", "Baritsu", "Lethwei", "Karate", "Kure"}, function(currentstyle)
+shared.currentStyle = currentstyle
+end)
+
+StyleSection:addDropdown("Style you want", {"Normal", "Sumo", "Woo", "Pirate", "Muay", "Taekwondo", "Wrestling", "Nikoo", "Niko", "Van", "ASumo", "Marbs", "Helly", "KungFu", "Yuri", "Formless", "Raishin", "Mercenary", "Momo", "Boxing", "Gaolang", "Ashley", "NORMAL", "Booter", "Hitman", "Baritsu", "Lethwei", "Karate", "Kure"}, function(styleuwant)
+shared.styleSelected = styleuwant
+end)
+
+StyleSection2:addToggle("Change Style", nil, function(changestyle)
+shared.changeStyle = changestyle
+
+while shared.changeStyle and wait() do
+    Player.Backpack["Basic Combat"][shared.currentStyle].Idle.AnimationId = Player.Backpack["Basic Combat"][shared.styleSelected].Idle.AnimationId
+    Player.Backpack["Basic Combat"][shared.currentStyle].Walk.AnimationId = Player.Backpack["Basic Combat"][shared.styleSelected].Walk.AnimationId
+end
 end)
 
 local ESP = venyx:addPage("ESP", 5012544693)
@@ -576,16 +598,17 @@ ItemsSection:addButton("Buy Item", function(buystuff)
 fireclickdetector(Workspace.Shop[shared.itemSelected].Head.ClickDetector)
 end)
 
-ItemsSection2:addButton("Auto buy and use bandage", function(baubandage)
+ItemsSection2:addButton("Auto Buy and use bandage", function(baubandage)
 fireclickdetector(Workspace.Shop["Bandage $130"].Head.ClickDetector)
-wait(0.1)
+task.wait()
 Humanoid:EquipTool(Player.Backpack:FindFirstChild("Bandage"))
-wait(0.1)
+task.wait()
 Character:FindFirstChild("Bandage"):Activate()
 end)
 
 local Security = venyx:addPage("Security", 5012544693)
 local SecuritySection = Security:addSection("Anti-Ban")
+local SecuritySection2 = Security:addSection("Spectate")
 
 SecuritySection:addToggle("Mod Detector", nil, function(moddetector)
 shared.modDetector = moddetector
@@ -622,6 +645,15 @@ end)
 
 end
 end)
+
+--[[local dropdown1 = SecuritySection2:addDropdown("Players", {"balls"}, function(playertospectate)
+shared.player2Spectate = playertospectate
+end)
+
+SecuritySection2:addButton("Refresh players", function(refreshplayers)
+    SecuritySection2:updateDropdown(dropdown1, "Players", {"test"}, function(playertospectate)
+    end)
+end)--]]
 
 -- Settings
 local Settings = venyx:addPage("Settings", 5012544693)
